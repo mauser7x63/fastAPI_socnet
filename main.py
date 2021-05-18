@@ -4,7 +4,6 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 import crud, models, schemas
 from database import SessionLocal, engine
-import uvicorn
 from auth import Auth
 
 models.Base.metadata.create_all(bind=engine)
@@ -110,4 +109,5 @@ def refresh_token(credentials: HTTPAuthorizationCredentials = Security(security)
     return {'access_token': new_token}
 ###################################################################
 if __name__ == "__main__":
+    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=9000)
