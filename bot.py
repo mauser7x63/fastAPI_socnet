@@ -1,9 +1,10 @@
 import requests
 import json
 from faker import Faker
+from requests.api import post
 
 fake = Faker()
-Faker.seed(3)
+Faker.seed(0)
 endpoint = 'http://127.0.0.1:9000/'
 headers = {
             'accept': 'application/json',
@@ -59,12 +60,21 @@ class Bot():
     def createPost(self):
         pass
 
-    def likePost(self):
-        pass
+    def ratePost(self, post_id, like=True):
+        if like: 
+            rate = 'like'
+        else:
+            rate = 'dislike'
+        url = f'{endpoint}post/{post_id}/{rate}?token={self.token}'
+        print('request to URL:', url)
+        res = requests.post(url=url, headers=headers, data={})
+        if res.status_code == 200:
+            pprint(res.json())
+            return {'message': f'post id={post_id} was liked'}
+        else:
+            print('something goes wrong, error: ', res.status_code)
+            return res.status_code     
 
-    def dislikePost(self):
-        pass
- 
 if __name__=="__main__":
     from pprint import pprint
     print('bot standalone runned')
@@ -77,3 +87,5 @@ if __name__=="__main__":
     '''
     bot = Bot(name=fake.first_name_nonbinary(), passwd=fake.pystr())
     print(f'user: {bot.username} with passwd: {bot.password}')
+    print(bot.token)
+    print(bot.ratePost(post_id=1, like=False))
