@@ -57,8 +57,9 @@ class Bot():
             print('something goes wrong, error: ', res.status_code)
             return res.status_code     
     
-    def createPost(self):
-        pass
+    def createPost(self, user_id, text):
+        url = f'{endpoint}{user_id}'
+        return
 
     def ratePost(self, post_id, like=True):
         if like: 
@@ -80,12 +81,17 @@ if __name__=="__main__":
     print('bot standalone runned')
     rules = loadConfig()
     pprint(rules)
-    '''
+    
     for _ in range(rules['number_of_users']):
-        bot = Bot(name=fake.first_name_nonbinary(), passwd=fake.pystr())
-        print(f'user: {bot.username} with passwd: {bot.password}')
-    '''
+        #bot = Bot(name=fake.first_name_nonbinary(), passwd=fake.pystr())
+        #print(f'user: {bot.username} with passwd: {bot.password}')
+        print(fake.paragraph(nb_sentences=3))
+        print('*'*20)
+
+        
+    
     bot = Bot(name=fake.first_name_nonbinary(), passwd=fake.pystr())
     print(f'user: {bot.username} with passwd: {bot.password}')
-    print(bot.token)
-    print(bot.ratePost(post_id=1, like=False))
+    #print(fake.paragraph(nb_sentences=3))
+    #print(bot.token)
+   # print(bot.ratePost(post_id=1, like=False))
