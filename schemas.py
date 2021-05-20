@@ -11,6 +11,11 @@ class Post(BaseModel):
     class Config:
         orm_mode = True
 
+class PostCreate(BaseModel):
+    content: str
+    user_id: int
+    token: str
+
 class UserBase(BaseModel):
     email: str
 

@@ -58,7 +58,7 @@ class Bot():
             return res.status_code     
     
     def createPost(self, user_id, text):
-        url = f'{endpoint}{user_id}'
+        url = f'{endpoint}{user_id}/post/'
         return
 
     def ratePost(self, post_id, like=True):
@@ -93,5 +93,5 @@ if __name__=="__main__":
     bot = Bot(name=fake.first_name_nonbinary(), passwd=fake.pystr())
     print(f'user: {bot.username} with passwd: {bot.password}')
     #print(fake.paragraph(nb_sentences=3))
-    #print(bot.token)
-   # print(bot.ratePost(post_id=1, like=False))
+    print(bot.token)
+    print(bot.ratePost(post_id=1, like=False))

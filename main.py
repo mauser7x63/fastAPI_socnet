@@ -34,8 +34,8 @@ def get_post(post_id: int, db: Session=Depends(get_db)):
 def like_post(post_id: int, db: Session=Depends(get_db)):
     return crud.update_post(db, post_id, like=1)
 
-@app.post('/post/{post_id}/dislike', response_model=schemas.Post, dependencies=[Depends(auth_handler.decode_token)])
-def dislike_post(post_id: int, db: Session=Depends(get_db)):
+@app.post('/post/{post_id}/dislike', response_model=schemas.Post)
+def dislike_post(post_id: int, db: Session=Depends(get_db), token: str=Depends(auth_handler.decode_token)):
     print('there is!')
     return crud.update_post(db, post_id, like=-1)
 
@@ -61,11 +61,9 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     return db_user
 
 
-@app.post('/users/{user_id}/posts/', response_model=schemas.Post, dependencies=[Depends(auth_handler.decode_token)])
-def create_user_post(user_id: int, content:str, db: Session = Depends(get_db)):
-    token = credentials.credentials
-    if(auth_handler.decode_token(token)):
-        return crud.create_user_post(db=db, user_id=user_id, content=content)
+@app.post('/newpost/', response_model=schemas.Post)
+def create_user_post(content:schemas.PostCreate, db: Session = Depends(get_db),  token: str=Depends(auth_handler.decode_token)):
+    return crud.create_user_post(db=db, user_id=content.user_id, content=content.content)
 
 
 @app.get('/users/{user_id}/posts/', response_model=List[schemas.Post])
