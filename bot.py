@@ -58,8 +58,18 @@ class Bot():
             return res.status_code     
     
     def createPost(self, user_id, text):
-        url = f'{endpoint}{user_id}/post/'
-        return
+        url = f'{endpoint}/newpost/?token={self.token}'
+        body = {
+            "content": text,
+            "user_id": user_id,
+            "token": self.token
+        }
+        res = requests.post(url=url, headers=headers, json=body)
+        if res.status_code == 200:
+            return res.json()
+        else:
+            print("failed to post", res.status_code)
+            return res.status_code
 
     def ratePost(self, post_id, like=True):
         if like: 
@@ -94,4 +104,4 @@ if __name__=="__main__":
     print(f'user: {bot.username} with passwd: {bot.password}')
     #print(fake.paragraph(nb_sentences=3))
     print(bot.token)
-    print(bot.ratePost(post_id=1, like=False))
+    print(bot.createPost())
