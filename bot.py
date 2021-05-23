@@ -121,11 +121,5 @@ if __name__=="__main__":
     print('bot standalone runned')
     rules = loadFromJSNON('fastAPI_socnet/bots_config.json')
     pprint(rules)
-    
-    #for _ in range(rules['number_of_users']):
-        #bot = Bot(name=fake.first_name_nonbinary(), passwd=fake.pystr())
-        #print(f'user: {bot.username} with passwd: {bot.password}')
-        #print(fake.paragraph(nb_sentences=3))
-        #print('*'*20)
-users = loadBots()
-prepearBots(users)
+    users = loadBots()
+    prepearBots(users)
